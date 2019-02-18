@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="result"></div>
+<div id="resultL"></div>
+
+
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+var latitude = "";
+var longitude = "";
+function showPosition(position) {
+    latitude = position.coords.latitude ;
+    longitude=position.coords.longitude;
+    console.log(longitude);
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+  localStorage.setItem("latitude",latitude);
+      localStorage.setItem("longitude", longitude);
+
+}
+
+    // Check browser support
+    if (typeof(Storage) !== "undefined") {
+      console.log(localStorage.getItem("latitude"));
+      console.log(localStorage.getItem("longitude"));
+
+      document.getElementById("result").innerHTML = localStorage.getItem("latitude");
+      document.getElementById("resultL").innerHTML = localStorage.getItem("longitude");
+
+    } else {
+      document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+    }
+    </script>
+
+</body>
+</html>
